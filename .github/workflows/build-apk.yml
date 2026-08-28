@@ -41,10 +41,13 @@ jobs:
 
       - name: Build APK
         run: |
-         cd project
-         echo "android.useAndroidX=true" > gradle.properties
-         echo "android.enableJetifier=true" >> gradle.properties
-         gradle assembleDebug --stacktrace --info
+          cd project
+          echo "android.useAndroidX=true" > gradle.properties
+          echo "android.enableJetifier=true" >> gradle.properties
+          echo "org.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8" >> gradle.properties
+          echo "org.gradle.daemon=false" >> gradle.properties
+          export GRADLE_OPTS="-Xmx6g -XX:MaxMetaspaceSize=1g"
+          gradle assembleDebug --stacktrace --info
 
       - name: Ambil APK
         uses: actions/upload-artifact@v4
