@@ -42,7 +42,9 @@ jobs:
       - name: Build APK
         run: |
           cd project
-          sed -i '/id("com.google.gms.google-services")/d' app/build.gradle.kts
+          echo "android.useAndroidX=true" > gradle.properties
+          echo "android.enableJetifier=true" >> gradle.properties
+          sed -i '...' ...
           gradle assembleDebug
 
       - name: Ambil APK
